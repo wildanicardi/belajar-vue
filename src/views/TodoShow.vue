@@ -22,23 +22,16 @@
 </template>
 
 <script>
-import TodoService from "@/services/TodoService.js";
+import { mapState, mapActions } from "vuex";
 export default {
   props: ["id"],
-  data() {
-    return {
-      todo: {}
-    };
-  },
   created() {
-    TodoService.getTodo(this.id)
-      .then(res => {
-        this.todo = res.data;
-      })
-      .catch(err => {
-        console.log("There was an error" + err.response);
-      });
-  }
+    this.fetchTodo(this.id);
+  },
+  computed: mapState({
+    todo: state => state.todo.todo
+  }),
+  methods: mapActions("todo", ["fetchTodo"])
 };
 </script>
 

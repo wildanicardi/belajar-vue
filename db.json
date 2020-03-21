@@ -1,10 +1,12 @@
 {
-  "todos": [{
+  "todos": [
+    {
       "id": 1,
       "title": "Belajar VueJS",
       "description": "Belajar Vue Js membuat simple project Todo List",
       "date": "Tues Aug",
-      "data": [{
+      "data": [
+        {
           "id": 1,
           "name": "wildan"
         },
@@ -19,7 +21,8 @@
       "title": "Belajar ExpressJs",
       "description": "Belajar ExpressJs membuat simple project Api",
       "date": "Wed Aug",
-      "data": [{
+      "data": [
+        {
           "id": 1,
           "name": "muhammad ali"
         },
@@ -34,7 +37,8 @@
       "title": "Belajar Json",
       "description": "Belajar JSon membuat simple project Data",
       "date": "Mon Aug",
-      "data": [{
+      "data": [
+        {
           "id": 1,
           "name": "heru"
         },
@@ -43,7 +47,28 @@
           "name": "elek"
         }
       ]
+    },
+    {
+      "id": 9,
+      "user": {
+        "id": 1,
+        "name": "wildan"
+      },
+      "title": "ember js",
+      "description": "belajar dong",
+      "date": "2020-03-18T13:08:00.000Z",
+      "data": []
+    },
+    {
+      "id": 97820615,
+      "user": {
+        "id": 1,
+        "name": "wildan"
+      },
+      "title": "vanilla js",
+      "description": "belajar vanilla js",
+      "date": "2020-03-18T13:15:00.000Z",
+      "data": []
     }
   ]
-
 }
