@@ -1,0 +1,49 @@
+{
+  "todos": [{
+      "id": 1,
+      "title": "Belajar VueJS",
+      "description": "Belajar Vue Js membuat simple project Todo List",
+      "date": "Tues Aug",
+      "data": [{
+          "id": 1,
+          "name": "wildan"
+        },
+        {
+          "id": 2,
+          "name": "aldo"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Belajar ExpressJs",
+      "description": "Belajar ExpressJs membuat simple project Api",
+      "date": "Wed Aug",
+      "data": [{
+          "id": 1,
+          "name": "muhammad ali"
+        },
+        {
+          "id": 2,
+          "name": "ganteng"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Belajar Json",
+      "description": "Belajar JSon membuat simple project Data",
+      "date": "Mon Aug",
+      "data": [{
+          "id": 1,
+          "name": "heru"
+        },
+        {
+          "id": 2,
+          "name": "elek"
+        }
+      ]
+    }
+  ]
+
+}

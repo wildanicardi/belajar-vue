@@ -1,5 +1,5 @@
 # real-world-vue
-
+Belajar vue js dari dasar, seperti dynamic route, global components, slots and api calls with axios
 ## Project setup
 ```
 npm install
