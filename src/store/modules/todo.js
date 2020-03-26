@@ -3,7 +3,8 @@ export const namespaced = true;
 export const state = {
   categories: ["vue js", "angular js", "react js"],
   todos: [],
-  todo: {}
+  todo: {},
+  perPage: 3
 };
 export const mutations = {
   ADD_TODO(state, todo) {
@@ -22,8 +23,8 @@ export const actions = {
       commit("ADD_TODO", todo);
     });
   },
-  fetchTodos({ commit, dispatch }, { perPage, page }) {
-    return TodoService.getTodos(perPage, page)
+  fetchTodos({ commit, dispatch, state }, { page }) {
+    return TodoService.getTodos(state.perPage, page)
       .then(res => {
         commit("SET_TODOS", res.data);
       })
@@ -37,24 +38,19 @@ export const actions = {
         });
       });
   },
-  fetchTodo({ commit, getters, dispatch }, id) {
+  fetchTodo({ commit, getters, state }, id) {
+    if (id == state.todo.id) {
+      return state.todo;
+    }
     var todo = getters.getTodoById(id);
     if (todo) {
       commit("SET_TODO", todo);
+      return todo;
     } else {
-      TodoService.getTodo(id)
-        .then(res => {
-          commit("SET_TODO", res.data);
-        })
-        .catch(err => {
-          const notification = {
-            type: "error",
-            message: "There was a problem" + err.message
-          };
-          dispatch("notification/add", notification, {
-            root: true
-          });
-        });
+      return TodoService.getTodo(id).then(res => {
+        commit("SET_TODO", res.data);
+        return res.data;
+      });
     }
   }
 };

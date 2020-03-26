@@ -22,16 +22,13 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
 export default {
-  props: ["id"],
-  created() {
-    this.fetchTodo(this.id);
-  },
-  computed: mapState({
-    todo: state => state.todo.todo
-  }),
-  methods: mapActions("todo", ["fetchTodo"])
+  props: {
+    todo: {
+      type: Object,
+      required: true
+    }
+  }
 };
 </script>
 

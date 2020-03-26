@@ -3,36 +3,35 @@
     <h1>Create Todo</h1>
     <form @submit.prevent="createTodo">
       <h3>Title & describe your todo</h3>
-      <div class="field">
-        <label>Title</label>
-        <input
-          v-model="todo.title"
-          type="text"
-          placeholder="Add an todo title"
-        />
-      </div>
+      <BaseInput
+        label="Title"
+        v-model="todo.title"
+        type="text"
+        placeholder="Add a Title"
+        class="field"
+      />
+      <BaseInput
+        label="Description"
+        v-model="todo.description"
+        type="text"
+        placeholder="Add a Description"
+        class="field"
+      />
 
-      <div class="field">
-        <label>Description</label>
-        <input
-          v-model="todo.description"
-          type="text"
-          placeholder="Add a description"
-        />
-      </div>
       <h3>When is your todo?</h3>
 
       <div class="field">
         <label>Date</label>
         <Datepicker v-model="todo.date" placeholder="Select a date" />
       </div>
-      <input type="submit" class="button -fill-gradient" value="Submit" />
+      <BaseButton type="submit" buttonClass="-fill-gradient">Submit</BaseButton>
     </form>
   </div>
 </template>
 
 <script>
 import Datepicker from "vuejs-datepicker";
+import NProgress from "nprogress";
 export default {
   components: {
     Datepicker
@@ -45,6 +44,7 @@ export default {
   },
   methods: {
     createTodo() {
+      NProgress.start();
       this.$store
         .dispatch("todo/createTodo", this.todo)
         .then(() => {
@@ -54,8 +54,8 @@ export default {
           });
           this.todo = this.createFreshTodoObject();
         })
-        .catch(err => {
-          console.log(err.response);
+        .catch(() => {
+          NProgress.done();
         });
     },
     createFreshTodoObject() {
