@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button v-on="$listener" class="button" :class="buttonClass">
+    <button v-on="$listeners" class="button" :class="buttonClass">
       <slot />
     </button>
   </div>

@@ -6,6 +6,9 @@ update modules vuex
 
 
 update axios interceptors, NProgress in router, 404 and network issue page, global component BaseInput and BaseButton
+
+
+update mixins and filters
 ## Project setup
 ```
 npm install

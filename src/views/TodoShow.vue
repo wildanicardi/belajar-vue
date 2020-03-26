@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="todo-header">
-      <span class="eyebrow">@{{ todo.date }}</span>
+      <span class="eyebrow">@{{ todo.date | date }}</span>
       <h1 class="title">{{ todo.title }}</h1>
       <h2>todo details</h2>
       <p>{{ todo.description }}</p>

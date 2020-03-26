@@ -4,7 +4,7 @@
     :to="{ name: 'todo-show', params: { id: todo.id } }"
   >
     <div class="todo-card -shadow">
-      <span class="eyebrow">@{{ todo.date }}</span>
+      <span class="eyebrow">@{{ todo.date | date }}</span>
       <h4 class="title">{{ todo.title }}</h4>
       <BaseIcon name="users">{{ todo.data.length }} data</BaseIcon>
     </div>
