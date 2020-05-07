@@ -1,5 +1,6 @@
 {
-  "todos": [{
+  "todos": [
+    {
       "id": 9,
       "user": {
         "id": 1,
@@ -52,6 +53,17 @@
       "title": "mixins",
       "description": "coba mixins",
       "date": "2020-03-17T15:33:00.000Z",
+      "data": []
+    },
+    {
+      "id": 95112744,
+      "user": {
+        "id": 1,
+        "name": "wildan"
+      },
+      "title": "type off",
+      "description": "coba",
+      "date": "2020-04-02T03:24:00.000Z",
       "data": []
     }
   ]
