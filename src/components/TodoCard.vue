@@ -21,10 +21,12 @@ export default {
 
 <style scoped>
 .todo-card {
-  padding: 20px;
-  margin-bottom: 24px;
-  transition: all 0.2s linear;
+  width: 25em;
+  margin: 1em auto 1em auto;
+  padding: 2em;
+  border: solid 1px #2c3e50;
   cursor: pointer;
+  transition: all 0.2s linear;
 }
 .todo-card:hover {
   transform: scale(1.01);

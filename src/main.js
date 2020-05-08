@@ -6,10 +6,10 @@ import store from "./store";
 import upperFirst from "lodash/upperFirst";
 import camelCase from "lodash/camelCase";
 import "nprogress/nprogress.css";
-import Vuelidate from 'vuelidate';
-import DateFilter from './filters/date';
+import Vuelidate from "vuelidate";
+import DateFilter from "./filters/date";
 
-Vue.filter('date', DateFilter);
+Vue.filter("date", DateFilter);
 
 Vue.use(Vuelidate);
 
@@ -31,9 +31,9 @@ requireComponent.keys().forEach(fileName => {
     camelCase(
       // Gets the file name regardless of folder depth
       fileName
-      .split("/")
-      .pop()
-      .replace(/\.\w+$/, "")
+        .split("/")
+        .pop()
+        .replace(/\.\w+$/, "")
     )
   );
 

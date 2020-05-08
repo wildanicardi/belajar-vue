@@ -18,41 +18,26 @@ export const mutations = {
   }
 };
 export const actions = {
-  createTodo({
-    commit
-  }, todo) {
+  createTodo({ commit }, todo) {
     return TodoService.postTodo(todo).then(() => {
       commit("ADD_TODO", todo);
     });
   },
-  fetchTodos({
-    commit,
-    dispatch,
-    state
-  }, {
-    page
-  }) {
-    return TodoService.getTodos(state.perPage, page)
-      .then(res => {
-        console.log(res.data.todos);
-
-        commit("SET_TODOS", res.data.todos);
-      })
-      .catch(err => {
-        const notification = {
-          type: "error",
-          message: "There was a problem" + err.message
-        };
-        dispatch("notification/add", notification, {
-          root: true
-        });
+  async fetchTodos({ commit, dispatch, state }, { page }) {
+    try {
+      const { data } = await TodoService.getTodos(state.perPage, page);
+      commit("SET_TODOS", data.todos.todos);
+    } catch (error) {
+      const notification = {
+        type: "error",
+        message: "There was a problem" + error.message
+      };
+      dispatch("notification/add", notification, {
+        root: true
       });
+    }
   },
-  fetchTodo({
-    commit,
-    getters,
-    state
-  }, id) {
+  fetchTodo({ commit, getters, state }, id) {
     if (id == state.todo.id) {
       return state.todo;
     }

@@ -8,9 +8,9 @@
 
 <script>
 export default {
-  props:{
-    buttonClass:{
-      type:String
+  props: {
+    buttonClass: {
+      type: String
     }
   }
 };

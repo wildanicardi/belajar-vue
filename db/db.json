@@ -1,6 +1,5 @@
 {
-  "todos": [
-    {
+  "todos": [{
       "id": 9,
       "user": {
         "id": 1,

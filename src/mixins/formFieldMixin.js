@@ -3,7 +3,7 @@ export const formFieldMixin = {
   props: {
     label: {
       type: String,
-      default: ''
+      default: ""
     },
     value: [String, Number]
   },
@@ -12,4 +12,4 @@ export const formFieldMixin = {
       this.$emit("input", todo.target.value);
     }
   }
-}
+};
