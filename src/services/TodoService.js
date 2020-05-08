@@ -21,12 +21,12 @@ apiCLient.interceptors.response.use(config => {
 });
 export default {
   getTodos(perPage, page) {
-    return apiCLient.get("/todos?_limit=" + perPage + "&_page=" + page);
+    return apiCLient.get("/dashboard?_limit=" + perPage + "&_page=" + page);
   },
   getTodo(id) {
-    return apiCLient.get("/todos/" + id);
+    return apiCLient.get("/dashboard/" + id);
   },
   postTodo(todo) {
-    return apiCLient.post("/todos", todo);
+    return apiCLient.post("/dashboard", todo);
   }
 };
