@@ -5,12 +5,21 @@ import NProgress from "nprogress";
 import store from "@/store/index";
 Vue.use(VueRouter);
 
-const routes = [
-  {
+const routes = [{
     path: "/",
     name: "todo-list",
     component: TodoList,
     props: true
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: () => import("../views/RegisterUser.vue")
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: () => import("../views/Login.vue")
   },
   {
     path: "/todos/create",
@@ -34,9 +43,16 @@ const routes = [
         })
         .catch(err => {
           if (err.response && err.response.status == 404) {
-            next({ name: "404", params: { resource: "todo" } });
+            next({
+              name: "404",
+              params: {
+                resource: "todo"
+              }
+            });
           } else {
-            next({ name: "network-issue" });
+            next({
+              name: "network-issue"
+            });
           }
         });
     }

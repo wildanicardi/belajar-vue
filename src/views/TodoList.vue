@@ -7,37 +7,21 @@
 
 <script>
 import TodoCard from "@/components/TodoCard.vue";
-import { mapState} from "vuex";
-import store from "@/store/index";
-function getPageTodos(routeTo, next) {
-  const currentPage = parseInt(routeTo.query.page) || 1;
-  store
-    .dispatch("todo/fetchTodos", {
-      page: currentPage
-    })
-    .then(() => {
-      routeTo.params.page = currentPage;
-      next();
-    });
-}
+import { mapState, mapActions } from "vuex";
 export default {
-  props: {
-    page: {
-      type: Number,
-      required: true
-    }
-  },
   components: {
-    TodoCard
+    TodoCard,
   },
-  beforeRouteEnter(routeTo, routeFrom, next) {
-    getPageTodos(routeTo, next);
-  },
-  beforeRouteUpdate(routeTo, routeFrom, next) {
-    getPageTodos(routeTo, next);
+  created() {
+    this.fetchTodos();
   },
   computed: {
-    ...mapState(["todo", "user"])
+    ...mapState(["todo", "user"]),
+  },
+  methods: {
+    ...mapActions({
+      fetchTodos: "todo/fetchTodos",
+    }),
   },
 };
 </script>

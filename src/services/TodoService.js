@@ -20,8 +20,8 @@ apiCLient.interceptors.response.use(config => {
   return config;
 });
 export default {
-  getTodos(perPage, page) {
-    return apiCLient.get("/dashboard?_limit=" + perPage + "&_page=" + page);
+  getTodos() {
+    return apiCLient.get("/dashboard");
   },
   getTodo(id) {
     return apiCLient.get("/dashboard/" + id);

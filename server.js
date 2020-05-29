@@ -1,8 +1,8 @@
 const express = require("express");
-// const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-// const fs = require("fs");
+const fs = require("fs");
 const todos = require("./db/db.json");
 
 const app = express();
@@ -22,44 +22,47 @@ app.get("/dashboard", (req, res) => {
   });
 });
 
-// app.post("/register", (req, res) => {
-//   if (req.body) {
-//     const user = {
-//       name: req.body.name,
-//       email: req.body.email,
-//       password: req.body.password
-//       // In a production app, you'll want to encrypt the password
-//     };
+app.post("/register", async (req, res) => {
+  try {
+    if (req.body) {
+      const user = {
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password
+      };
 
-//     const data = JSON.stringify(user, null, 2);
-//     var dbUserEmail = require("./db/user.json").email;
+      const data =await JSON.stringify(user, null, 2);
+      var dbUserEmail = require("./db/user.json").email;
 
-//     if (dbUserEmail === req.body.email) {
-//       res.sendStatus(400);
-//     } else {
-//       fs.writeFile("./db/user.json", data, err => {
-//         if (err) {
-//           console.log(err + data);
-//         } else {
-//           const token = jwt.sign(
-//             {
-//               user
-//             },
-//             "the_secret_key"
-//           );
-//           // In a production app, you'll want the secret key to be an environment variable
-//           res.json({
-//             token,
-//             email: user.email,
-//             name: user.name
-//           });
-//         }
-//       });
-//     }
-//   } else {
-//     res.sendStatus(400);
-//   }
-// });
+      if (dbUserEmail === req.body.email) {
+        res.sendStatus(400);
+      } else {
+        fs.writeFile("./db/user.json", data, err => {
+          if (err) {
+            console.log(err + data);
+          } else {
+            const token =await jwt.sign({
+                user
+              },
+              "the_secret_key"
+            );
+            // In a production app, you 'll want the secret key to be an environment variable
+            res.json({
+              token,
+              email: user.email,
+              name: user.name
+            });
+          }
+        });
+      }
+    } else {
+      res.sendStatus(400);
+    }
+  } catch (error) {
+    console.log(error.message);
+
+  }
+});
 
 // app.post("/login", (req, res) => {
 //   const userDB = fs.readFileSync("./db/user.json");

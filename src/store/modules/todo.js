@@ -23,9 +23,9 @@ export const actions = {
       commit("ADD_TODO", todo);
     });
   },
-  async fetchTodos({ commit, dispatch, state }, { page }) {
+  async fetchTodos({ commit, dispatch }) {
     try {
-      const { data } = await TodoService.getTodos(state.perPage, page);
+      const { data } = await TodoService.getTodos();
       commit("SET_TODOS", data.todos.todos);
     } catch (error) {
       const notification = {
