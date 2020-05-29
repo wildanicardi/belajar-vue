@@ -23,6 +23,9 @@
         class="field"
       />
       <BaseButton type="submit" buttonClass="-fill-gradient">Submit</BaseButton>
+      <router-link :to="{ name: 'login' }" style="margin-top:8px">
+        Already Have an account? Login.
+      </router-link>
     </form>
   </div>
 </template>
@@ -34,8 +37,8 @@ export default {
       user: {
         name: "",
         email: "",
-        password: "",
-      },
+        password: ""
+      }
     };
   },
   methods: {
@@ -43,13 +46,13 @@ export default {
       this.$store
         .dispatch("user/register", this.user)
         .then(() => {
-          this.$router.push({ name: "todo-list" });
+          this.$router.push({ name: "dashboard" });
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

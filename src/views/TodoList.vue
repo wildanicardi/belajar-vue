@@ -10,19 +10,19 @@ import TodoCard from "@/components/TodoCard.vue";
 import { mapState, mapActions } from "vuex";
 export default {
   components: {
-    TodoCard,
+    TodoCard
   },
   created() {
     this.fetchTodos();
   },
   computed: {
-    ...mapState(["todo", "user"]),
+    ...mapState(["todo", "user"])
   },
   methods: {
     ...mapActions({
-      fetchTodos: "todo/fetchTodos",
-    }),
-  },
+      fetchTodos: "todo/fetchTodos"
+    })
+  }
 };
 </script>
 

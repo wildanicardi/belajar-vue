@@ -2,14 +2,22 @@
   <div id="nav" class="nav">
     <router-link to="/" class="brand">Real World Vue</router-link>
     <nav>
-      <router-link :to="{ name: 'todo-list' }">List</router-link>|
+      <router-link :to="{ name: 'dashboard' }">Dashboard</router-link>|
       <router-link :to="{ name: 'todo-create' }">Create Todo</router-link>
     </nav>
+    <router-link v-if="!loggedIn" :to="{ name: 'login' }" class="button">
+      Login
+    </router-link>
   </div>
 </template>
 
 <script>
-export default {};
+import { authComputed } from "../store/helpers";
+export default {
+  computed: {
+    ...authComputed
+  }
+};
 </script>
 
 <style lang="scss" scoped>

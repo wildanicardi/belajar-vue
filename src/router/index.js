@@ -1,13 +1,20 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import TodoList from "../views/TodoList.vue";
+import Home from "../views/Home.vue";
 import NProgress from "nprogress";
 import store from "@/store/index";
 Vue.use(VueRouter);
 
 const routes = [{
     path: "/",
-    name: "todo-list",
+    name: "home",
+    component: Home,
+    props: true
+  },
+  {
+    path: "/dashboard",
+    name: "dashboard",
     component: TodoList,
     props: true
   },
@@ -24,9 +31,6 @@ const routes = [{
   {
     path: "/todos/create",
     name: "todo-create",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import("../views/TodoCreate.vue")
   },
   {

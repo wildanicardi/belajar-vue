@@ -16,6 +16,9 @@
         class="field"
       />
       <BaseButton type="submit" buttonClass="-fill-gradient">Submit</BaseButton>
+      <router-link :to="{ name: 'register' }">
+        Don't Have an account? Register
+      </router-link>
     </form>
   </div>
 </template>
@@ -31,7 +34,14 @@ export default {
     };
   },
   methods: {
-    login() {}
+    async login() {
+      try {
+        await this.$store.dispatch("user/login", this.user);
+        await this.$router.push({ name: "dashboard" });
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 };
 </script>

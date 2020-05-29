@@ -12,13 +12,13 @@ app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
   res.json({
-    message: "Welcome to the API."
+    message: "Welcome to the API.",
   });
 });
 
 app.get("/dashboard", (req, res) => {
   res.json({
-    todos: todos
+    todos: todos,
   });
 });
 
@@ -28,29 +28,29 @@ app.post("/register", async (req, res) => {
       const user = {
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
       };
 
-      const data =await JSON.stringify(user, null, 2);
+      const data = await JSON.stringify(user, null, 2);
       var dbUserEmail = require("./db/user.json").email;
 
       if (dbUserEmail === req.body.email) {
         res.sendStatus(400);
       } else {
-        fs.writeFile("./db/user.json", data, err => {
+        fs.writeFile("./db/user.json", data, (err) => {
           if (err) {
             console.log(err + data);
           } else {
-            const token =await jwt.sign({
-                user
+            const token = jwt.sign(
+              {
+                user,
               },
               "the_secret_key"
             );
-            // In a production app, you 'll want the secret key to be an environment variable
             res.json({
               token,
               email: user.email,
-              name: user.name
+              name: user.name,
             });
           }
         });
@@ -60,34 +60,34 @@ app.post("/register", async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
-
   }
 });
 
-// app.post("/login", (req, res) => {
-//   const userDB = fs.readFileSync("./db/user.json");
-//   const userInfo = JSON.parse(userDB);
-//   if (
-//     req.body &&
-//     req.body.email === userInfo.email &&
-//     req.body.password === userInfo.password
-//   ) {
-//     const token = jwt.sign(
-//       {
-//         userInfo
-//       },
-//       "the_secret_key"
-//     );
-//     // In a production app, you'll want the secret key to be an environment variable
-//     res.json({
-//       token,
-//       email: userInfo.email,
-//       name: userInfo.name
-//     });
-//   } else {
-//     res.sendStatus(400);
-//   }
-// });
+app.post("/login", async (req, res) => {
+  try {
+    const userDB = await fs.readFileSync("./db/user.json");
+    const userInfo = await JSON.parse(userDB);
+    if (
+      req.body &&
+      req.body.email === userInfo.email &&
+      req.body.password === userInfo.password
+    ) {
+      const token = jwt.sign(
+        {
+          userInfo,
+        },
+        "the_secret_key"
+      );
+      res.json({
+        token,
+        email: userInfo.email,
+        name: userInfo.name,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 // // MIDDLEWARE
 // function verifyToken(req, res, next) {

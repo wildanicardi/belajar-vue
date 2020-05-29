@@ -13,10 +13,8 @@ export const mutations = {
   },
   SET_USER(state, payload) {
     state.users = payload;
-    localStorage.setItem('user', JSON.stringify(payload));
-    axios.defaults.headers.common['Authorization'] = `Bearer ${
-      payload.token
-    }`;
+    localStorage.setItem("user", JSON.stringify(payload));
+    axios.defaults.headers.common["Authorization"] = `Bearer ${payload.token}`;
   }
 };
 export const actions = {
@@ -33,5 +31,24 @@ export const actions = {
       .catch(err => {
         console.log(err);
       });
+  },
+  login({
+    commit
+  }, payload) {
+    return axios
+      .post("http://localhost:3000/login", payload)
+      .then(({
+        data
+      }) => {
+        commit("SET_USER", data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };
+export const getters = {
+  loggedIn(state) {
+    return !!state.user;
+  }
+}
