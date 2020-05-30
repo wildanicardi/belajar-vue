@@ -16,7 +16,10 @@ const routes = [{
     path: "/dashboard",
     name: "dashboard",
     component: TodoList,
-    props: true
+    props: true,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: "/register",
@@ -90,6 +93,10 @@ const router = new VueRouter({
 });
 router.beforeEach((routeTo, routeFrom, next) => {
   NProgress.start();
+  const loggedIn = localStorage.getItem('user');
+  if (routeTo.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
+    next('/');
+  }
   next();
 });
 router.afterEach(() => {

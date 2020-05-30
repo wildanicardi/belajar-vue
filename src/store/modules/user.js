@@ -15,6 +15,10 @@ export const mutations = {
     state.users = payload;
     localStorage.setItem("user", JSON.stringify(payload));
     axios.defaults.headers.common["Authorization"] = `Bearer ${payload.token}`;
+  },
+  LOGOUT() {
+    localStorage.removeItem("user");
+    location.reload();
   }
 };
 export const actions = {
@@ -45,10 +49,15 @@ export const actions = {
       .catch(err => {
         console.log(err);
       });
+  },
+  logout({
+    commit
+  }) {
+    commit("LOGOUT");
   }
 };
 export const getters = {
   loggedIn(state) {
-    return !!state.user;
+    return !!state.users;
   }
 }

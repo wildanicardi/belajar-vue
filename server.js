@@ -12,13 +12,13 @@ app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
   res.json({
-    message: "Welcome to the API.",
+    message: "Welcome to the API."
   });
 });
 
 app.get("/dashboard", (req, res) => {
   res.json({
-    todos: todos,
+    todos: todos
   });
 });
 
@@ -28,7 +28,7 @@ app.post("/register", async (req, res) => {
       const user = {
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password,
+        password: req.body.password
       };
 
       const data = await JSON.stringify(user, null, 2);
@@ -37,20 +37,20 @@ app.post("/register", async (req, res) => {
       if (dbUserEmail === req.body.email) {
         res.sendStatus(400);
       } else {
-        fs.writeFile("./db/user.json", data, (err) => {
+        fs.writeFile("./db/user.json", data, err => {
           if (err) {
             console.log(err + data);
           } else {
             const token = jwt.sign(
               {
-                user,
+                user
               },
               "the_secret_key"
             );
             res.json({
               token,
               email: user.email,
-              name: user.name,
+              name: user.name
             });
           }
         });
@@ -74,14 +74,14 @@ app.post("/login", async (req, res) => {
     ) {
       const token = jwt.sign(
         {
-          userInfo,
+          userInfo
         },
         "the_secret_key"
       );
       res.json({
         token,
         email: userInfo.email,
-        name: userInfo.name,
+        name: userInfo.name
       });
     }
   } catch (error) {

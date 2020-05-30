@@ -2,12 +2,19 @@
   <div id="nav" class="nav">
     <router-link to="/" class="brand">Real World Vue</router-link>
     <nav>
-      <router-link :to="{ name: 'dashboard' }">Dashboard</router-link>|
-      <router-link :to="{ name: 'todo-create' }">Create Todo</router-link>
+      <router-link v-if="loggedIn" :to="{ name: 'dashboard' }"
+        >Dashboard</router-link
+      >|
+      <router-link v-if="loggedIn" :to="{ name: 'todo-create' }"
+        >Create Todo</router-link
+      >
     </nav>
     <router-link v-if="!loggedIn" :to="{ name: 'login' }" class="button">
       Login
     </router-link>
+    <button v-else type="button" class="logoutButton" @click="logout">
+      Logout
+    </button>
   </div>
 </template>
 
@@ -16,6 +23,11 @@ import { authComputed } from "../store/helpers";
 export default {
   computed: {
     ...authComputed
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("user/logout");
+    }
   }
 };
 </script>
