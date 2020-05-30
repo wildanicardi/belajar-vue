@@ -8,6 +8,7 @@ import camelCase from "lodash/camelCase";
 import "nprogress/nprogress.css";
 import Vuelidate from "vuelidate";
 import DateFilter from "./filters/date";
+import axios from 'axios';
 
 Vue.filter("date", DateFilter);
 
@@ -31,9 +32,9 @@ requireComponent.keys().forEach(fileName => {
     camelCase(
       // Gets the file name regardless of folder depth
       fileName
-        .split("/")
-        .pop()
-        .replace(/\.\w+$/, "")
+      .split("/")
+      .pop()
+      .replace(/\.\w+$/, "")
     )
   );
 
@@ -50,5 +51,22 @@ requireComponent.keys().forEach(fileName => {
 new Vue({
   router,
   store,
+  created() {
+    const userString = localStorage.getItem('user');
+    if (userString) {
+      const userData = JSON.parse(userString);
+      this.$store.commit('user/SET_USER', userData);
+    }
+    axios.interceptors.response.user(
+      response => response,
+      error => {
+        if (error.response.staus === 401) {
+          this.$store.dispatch('user/logout');
+        }
+        return Promise.reject(error);
+      }
+    )
+
+  },
   render: h => h(App)
 }).$mount("#app");

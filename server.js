@@ -16,10 +16,17 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/dashboard", (req, res) => {
-  res.json({
-    todos: todos
-  });
+app.get("/dashboard", verifyToken, (req, res) => {
+  jwt.verify(req.token, 'the_secret_key', err => {
+    if (err) {
+      res.sendStatus(401)
+      console.log(err);
+    } else {
+      res.json({
+        todos: todos
+      })
+    }
+  })
 });
 
 app.post("/register", async (req, res) => {
@@ -41,8 +48,7 @@ app.post("/register", async (req, res) => {
           if (err) {
             console.log(err + data);
           } else {
-            const token = jwt.sign(
-              {
+            const token = jwt.sign({
                 user
               },
               "the_secret_key"
@@ -72,8 +78,7 @@ app.post("/login", async (req, res) => {
       req.body.email === userInfo.email &&
       req.body.password === userInfo.password
     ) {
-      const token = jwt.sign(
-        {
+      const token = jwt.sign({
           userInfo
         },
         "the_secret_key"
@@ -89,19 +94,19 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// // MIDDLEWARE
-// function verifyToken(req, res, next) {
-//   const bearerHeader = req.headers["authorization"];
+// MIDDLEWARE
+function verifyToken(req, res, next) {
+  const bearerHeader = req.headers["authorization"];
 
-//   if (typeof bearerHeader !== "undefined") {
-//     const bearer = bearerHeader.split(" ");
-//     const bearerToken = bearer[1];
-//     req.token = bearerToken;
-//     next();
-//   } else {
-//     res.sendStatus(401);
-//   }
-// }
+  if (typeof bearerHeader !== "undefined") {
+    const bearer = bearerHeader.split(" ");
+    const bearerToken = bearer[1];
+    req.token = bearerToken;
+    next();
+  } else {
+    res.sendStatus(401);
+  }
+}
 
 app.listen(3000, () => {
   console.log("Server started on port 3000");
