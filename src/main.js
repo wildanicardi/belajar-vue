@@ -57,13 +57,15 @@ new Vue({
       const userData = JSON.parse(userString);
       this.$store.commit('user/SET_USER', userData);
     }
-    axios.interceptors.response.user(
+    axios.interceptors.response.use(
       response => response,
       error => {
-        if (error.response.staus === 401) {
-          this.$store.dispatch('user/logout');
+        console.log(error.response)
+        if (error.response.status === 401) {
+          this.$router.push('/')
+          this.$store.dispatch('logout')
         }
-        return Promise.reject(error);
+        return Promise.reject(error)
       }
     )
 
